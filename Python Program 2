@@ -1,0 +1,29 @@
+def evaluate_postfix(expression):
+    stack = []
+    tokens = expression.split()
+
+    for token in tokens:
+        if token.isdigit():
+            stack.append(int(token))
+        else:
+            if len(stack) < 2:
+                return "Invalid expression"
+            b = stack.pop()
+            a = stack.pop()
+            if token == '+':
+                stack.append(a + b)
+            elif token == '-':
+                stack.append(a - b)
+            elif token == '*':
+                stack.append(a * b)
+            elif token == '/':
+                stack.append(a / b)
+            else:
+                return "Unknown operator"
+
+    if len(stack) != 1:
+        return "Invalid expression"
+    return stack[0]
+
+expr = input("Enter postfix expression: ")
+print("Result:", evaluate_postfix(expr))
